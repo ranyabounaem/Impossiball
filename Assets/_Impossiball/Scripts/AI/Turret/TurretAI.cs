@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering;
 
-public class Turret : MonoBehaviour
+public class TurretAI : AI
 {
     [Header("Turret Parts")]
     [SerializeField]
@@ -15,8 +15,9 @@ public class Turret : MonoBehaviour
     [SerializeField]
     Transform _player;
 
-    void Start()
+    void Awake()
     {
+        SetState(new TurretScanState(this));
     }
 
     private void Update()
@@ -43,10 +44,5 @@ public class Turret : MonoBehaviour
         var _targetRotation = Quaternion.LookRotation(_directionToPlayer);
         var _angle = Quaternion.Angle(_targetRotation, _turret.rotation);
         _turret.rotation = Quaternion.RotateTowards(_turret.rotation, _targetRotation, 10 * _angle * Time.deltaTime);
-    }
-
-    private void OnDestroy()
-    {
-        
     }
 }
