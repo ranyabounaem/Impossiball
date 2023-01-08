@@ -1,10 +1,8 @@
 
 public class State
 {
-    protected AI _ai;
-    public State(AI ai)
+    public State()
     {
-        _ai = ai;
     }
     public virtual void OnEnter()
     {

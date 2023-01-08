@@ -5,21 +5,19 @@ using UnityEngine;
 
 public class AI : MonoBehaviour
 {
-    public Transform bodyTransform;
-    public Transform gunTransform;
+    protected State _currentState;
 
-    State currentState;
     public void SetState(State s)
     {
-        if (currentState != null)
-            currentState.OnExit();
-        currentState = s;
-        currentState.OnEnter();
+        if (_currentState != null)
+            _currentState.OnExit();
+        _currentState = s;
+        _currentState.OnEnter();
 
     }
 
     void Update()
     {
-        currentState.OnUpdate();
+        _currentState.OnUpdate();
     }
 }

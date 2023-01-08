@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public delegate void DetectionHandler(IDetectable detectedObject, bool detected);
+public delegate void DetectionHandler(IDetectable detectedObject);
 
 public class RadarScan : MonoBehaviour
 {
@@ -11,6 +11,8 @@ public class RadarScan : MonoBehaviour
     float _intervalBetweenScans = 0.25f;
     [SerializeField]
     float _scanSpeed = 10f;
+
+    public Transform CurrentDetectable { get; private set; }
     void Start()
     {
         StartCoroutine(ScanForPlayer());
@@ -23,8 +25,11 @@ public class RadarScan : MonoBehaviour
 
     IEnumerator ScanForPlayer()
     {
+        CurrentDetectable = null;
         transform.localScale = new Vector3(1, 1, 1);
         yield return new WaitForSeconds(_intervalBetweenScans);
+        if (CurrentDetectable == null)
+            OnDetection?.Invoke(null);
         StartCoroutine(ScanForPlayer());
     }
 
@@ -33,7 +38,8 @@ public class RadarScan : MonoBehaviour
         if (other.TryGetComponent(out IDetectable _detectable))
         {
             Debug.Log("Detected");
-            OnDetection?.Invoke(_detectable, true);
+            CurrentDetectable = other.transform;
+            OnDetection?.Invoke(_detectable);
         }
     }
 }

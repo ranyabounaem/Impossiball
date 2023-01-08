@@ -1666,15 +1666,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2441285228647953950, guid: da765b4e353a8d247bc4de9bd0cff1ba, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -1.8305874
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2441285228647953950, guid: da765b4e353a8d247bc4de9bd0cff1ba, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.025000095
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2441285228647953950, guid: da765b4e353a8d247bc4de9bd0cff1ba, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 5.4910207
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 2441285228647953950, guid: da765b4e353a8d247bc4de9bd0cff1ba, type: 3}
       propertyPath: m_LocalRotation.w
@@ -1704,18 +1704,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2768471898593897649, guid: da765b4e353a8d247bc4de9bd0cff1ba, type: 3}
-      propertyPath: _scanSpeed
-      value: 200
-      objectReference: {fileID: 0}
-    - target: {fileID: 2768471898593897649, guid: da765b4e353a8d247bc4de9bd0cff1ba, type: 3}
-      propertyPath: _intervalBetweenScans
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2768471899800687089, guid: da765b4e353a8d247bc4de9bd0cff1ba, type: 3}
-      propertyPath: _player
-      value: 
-      objectReference: {fileID: 1796686140}
     - target: {fileID: 3074550447886331044, guid: da765b4e353a8d247bc4de9bd0cff1ba, type: 3}
       propertyPath: m_Name
       value: Turret

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,25 +11,45 @@ public class TurretAI : AI
     Transform _upperBase;
     [SerializeField]
     Transform _turret;
-
-    [Header("Player Reference")]
     [SerializeField]
-    Transform _player;
+    RadarScan _radar;
+    [SerializeField]
+    GameObject _bullet;
+
+    [Header("References")]
+    [SerializeField]
+    Transform _bulletSpawnPos;
+
+    public Transform UpperBase => _upperBase;
+    public Transform Turret => _turret;
+    public RadarScan Radar => _radar;
 
     void Awake()
     {
         SetState(new TurretScanState(this));
     }
 
-    private void Update()
+    public void TrackTarget(Transform target)
     {
-        RotateBase();
-        RotateTurret();
+        RotateBase(target);
+        RotateTurret(target);
+    }    
+
+    public void StartFiring(Transform target)
+    {
+        StartCoroutine(Fire());
     }
 
-    void RotateBase()
+    IEnumerator Fire()
     {
-        var _playerPos = _player.position;
+        Instantiate(_bullet, _bulletSpawnPos.position, _turret.rotation);
+        yield return new WaitForSeconds(1f);
+        StartCoroutine(Fire());
+    }
+
+    void RotateBase(Transform target)
+    {
+        var _playerPos = target.position;
         var _upperbasePos = _upperBase.position;
         Vector3 _directionToPlayer = (new Vector3(_playerPos.x, 0, _playerPos.z) - new Vector3(_upperbasePos.x, 0, _upperbasePos.z)).normalized;
         var _targetRotation = Quaternion.LookRotation(_directionToPlayer);
@@ -36,13 +57,15 @@ public class TurretAI : AI
         _upperBase.rotation = Quaternion.RotateTowards(_upperBase.rotation, _targetRotation, 10 * _angle * Time.deltaTime);
     }
 
-    void RotateTurret()
+    void RotateTurret(Transform target)
     {
-        var _playerPos = _player.position;
+        var _playerPos = target.position;
         var _turretPos = _turret.position;
         Vector3 _directionToPlayer = (_playerPos - _turretPos).normalized;
         var _targetRotation = Quaternion.LookRotation(_directionToPlayer);
         var _angle = Quaternion.Angle(_targetRotation, _turret.rotation);
         _turret.rotation = Quaternion.RotateTowards(_turret.rotation, _targetRotation, 10 * _angle * Time.deltaTime);
     }
+
+
 }
