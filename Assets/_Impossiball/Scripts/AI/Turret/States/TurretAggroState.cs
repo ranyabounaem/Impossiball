@@ -31,6 +31,7 @@ public class TurretAggroState : State
     {
         base.OnExit();
         _radar.OnDetection -= HandleDetection;
+        _ai.StopAllCoroutines();
     }
 
     void HandleDetection (IDetectable detectable)

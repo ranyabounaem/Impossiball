@@ -4,15 +4,13 @@ using UnityEngine;
 
 public class Projectile : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField]
+    Rigidbody _rb;
+    [SerializeField]
+    float _bulletForce;
+    public void FireProjectile(Transform target)
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        var directionToTarget = target.position - transform.position;
+        _rb.AddForce(directionToTarget * _bulletForce);
     }
 }
